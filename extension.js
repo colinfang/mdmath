@@ -8,7 +8,7 @@ const vscode = require('vscode'),
       clipTmpl = (html,usrcss) => `<!doctype html><html><head><meta charset='utf-8'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.4.1/github-markdown.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">
-<link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css" integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
 <link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/texmath.css">
 <link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/vscode-texmath.css">
 ${usrcss ? `<link rel="stylesheet" href="${usrcss}">` : ''}
@@ -22,6 +22,7 @@ exports.activate = function activate(context) {
           tm = require('markdown-it-texmath').use(kt),
           cfg = (key) => vscode.workspace.getConfiguration('mdmath')[key],
           delimiters = cfg('delimiters') || 'dollars',
+          globalMacros = cfg('globalMacros'),
           clip = () => {
                const doc = vscode.window.activeTextEditor && vscode.window.activeTextEditor.document;
                if (!doc || doc.languageId !== 'markdown')
@@ -37,9 +38,10 @@ exports.activate = function activate(context) {
           cb = null;
 
     context.subscriptions.push(vscode.commands.registerCommand('extension.clipToHtml', clip));
+
     return {
         extendMarkdownIt: function(md) {
-            return (mdit = md).use(tm, {delimiters:delimiters});
+            return (mdit = md).use(tm, {delimiters:delimiters, globalMacros: globalMacros});
         }
     }
 }

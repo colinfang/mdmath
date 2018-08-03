@@ -1,11 +1,11 @@
 {
-  "name": "mdmath",
-  "displayName": "Markdown+Math",
-  "description": "LaTeX Math for Markdown",
+  "name": "my-mdmath",
+  "displayName": "My Personal Markdown+Math",
+  "description": "(My personal use) LaTeX Math with macros for Markdown",
   "icon": "img/icon.png",
-  "version": "2.3.4",
+  "version": "0.0.1",
   "author": "Stefan Goessner",
-  "publisher": "goessner",
+  "publisher": "colinfang",
   "keywords": [
     "TeX",
     "LaTeX",
@@ -17,13 +17,9 @@
     "color": "#efefef",
     "theme": "light"
   },
-  "homepage": "https://github.com/goessner/mdmath/blob/master/readme.md",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/goessner/mdmath.git"
-  },
-  "bugs": {
-    "url": "https://github.com/goessner/mdmath/issues"
+    "url": "https://github.com/colinfang/mdmath"
   },
   "license": "MIT",
   "engines": {
@@ -44,6 +40,15 @@
           "type": "string",
           "default": "dollars",
           "description": "Math formula delimiters."
+        },
+        "mdmath.globalMacros": {
+          "type": "array",
+          "default": [
+            "\\gdef\\E#1{\\operatorname{\\mathbb{E}}\\!\\big[#1\\big]}",
+            "\\gdef\\Eq#1#2{\\operatorname{\\mathbb{E}}_{#1}\\!\\big[#2\\big]}"
+          ],
+          "items": "string",
+          "description": "A list of global macros"
         }
       }
     },
@@ -102,11 +107,11 @@
     "get-stream": "^4.0.0",
     "is-stream": "^1.1.0",
     "isexe": "^2.0.0",
-    "katex": "^0.10.0-rc.1",
+    "katex": "^0.11.1",
     "linkify-it": "^2.0.3",
     "lru-cache": "^4.1.3",
     "markdown-it": "^8.4.2",
-    "markdown-it-texmath": "^0.5.2",
+    "markdown-it-texmath": "https://github.com/colinfang/markdown-it-texmath.git",
     "match-at": "^0.1.0",
     "mdurl": "^1.0.1",
     "npm-run-path": "^2.0.0",
